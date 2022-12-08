@@ -1,4 +1,6 @@
 import UIKit
+import UserNotifications
+import Foundation
 
 struct Booking {
     let date: Date
@@ -60,4 +62,21 @@ class BookingViewController: UIViewController {
 
         if let numberOfGuests = numberOfGuests {
             searchResults = searchResults.filter { $0.numberOfGuests == numberOfGuests }
+        
+        if let price = price {
+            searchResults = searchResults.filter { $0.price == price }
+        }
 
+        return searchResults
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let orangeThemeColor = UIColor(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0)
+        view.backgroundColor = orangeThemeColor
+        navigationController?.navigationBar.barTintColor = orangeThemeColor
+    
+    @IBAction func confirmButtonTapped(_ sender: Any) {
+        if booking.user.login(username: "user1", password: "password") {
+            booking.confirm()
